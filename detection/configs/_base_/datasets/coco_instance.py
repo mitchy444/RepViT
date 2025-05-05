@@ -1,6 +1,22 @@
 # dataset settings
 dataset_type = 'CocoDataset'
 data_root = 'data/coco/'
+classes = [
+    "boots-powerup",
+    "boxtrain",
+    "jump-barrier",
+    "jump-electric",
+    "jump-hedge",
+    "jump-roll-barrier",
+    "jump-trash",
+    "ledge",
+    "pogstick-powerup",
+    "ramp",
+    "roll-barrier",
+    "train",
+    "undercover-barrier",
+    "wall",
+]
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
 train_pipeline = [
@@ -33,17 +49,25 @@ data = dict(
     workers_per_gpu=2,
     train=dict(
         type=dataset_type,
-        ann_file=data_root + 'annotations/instances_train2017.json',
-        img_prefix=data_root + 'train2017/',
-        pipeline=train_pipeline),
+        ann_file=data_root + "annotations/instances_train2017.json",
+        img_prefix=data_root + "train2017/",
+        pipeline=train_pipeline,
+        classes=classes,
+    ),
     val=dict(
         type=dataset_type,
-        ann_file=data_root + 'annotations/instances_val2017.json',
-        img_prefix=data_root + 'val2017/',
-        pipeline=test_pipeline),
+        ann_file=data_root + "annotations/instances_val2017.json",
+        img_prefix=data_root + "val2017/",
+        pipeline=test_pipeline,
+        classes=classes,
+    ),
     test=dict(
         type=dataset_type,
-        ann_file=data_root + 'annotations/instances_val2017.json',
-        img_prefix=data_root + 'val2017/',
-        pipeline=test_pipeline))
-evaluation = dict(metric=['bbox', 'segm'])
+        ann_file=data_root + "annotations/instances_val2017.json",
+        img_prefix=data_root + "val2017/",
+        pipeline=test_pipeline,
+        classes=classes,
+    ),
+)
+# evaluation = dict(metric=['bbox', 'segm'])
+evaluation = dict(metric=["bbox"])
