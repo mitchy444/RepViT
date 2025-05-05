@@ -117,9 +117,10 @@ def main():
 
     cfg = Config.fromfile(args.config)
     cfg.log_config.hooks = [
-    dict(type='MMDetWandbHook',
-         init_kwargs={'project': 'MMDetection-tutorial'},
-         interval=10)]
+        dict(type='MMDetWandbHook',
+            init_kwargs={'project': 'MMDetection-tutorial'},
+            interval=10)
+    ]
 
 
     # update data root according to MMDET_DATASETS
