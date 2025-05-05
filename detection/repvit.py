@@ -2,10 +2,11 @@ import torch.nn as nn
 import numpy as np
 import itertools
 
-from mmdet.utils import get_root_logger
-from mmdet.models.builder import BACKBONES
+# from mmdet.utils import get_root_logger
+import logging
+from mmdet.registry import MODELS
 from torch.nn.modules.batchnorm import _BatchNorm
-from mmcv.runner import _load_checkpoint
+from mmengine.runner.checkpoint import _load_checkpoint
 
 def _make_divisible(v, divisor, min_value=None):
     """
@@ -220,7 +221,8 @@ class RepViT(nn.Module):
         self.train()
 
     def init_weights(self, pretrained=None):
-        logger = get_root_logger()
+        # logger = get_root_logger()
+        logger = logging.getLogger()
         if self.init_cfg is None and pretrained is None:
             logger.warn(f'No pre-trained weights for '
                         f'{self.__class__.__name__}, '
@@ -271,7 +273,7 @@ class RepViT(nn.Module):
 
 from timm.models import register_model
 
-@BACKBONES.register_module()
+@MODELS.register_module()
 def repvit_m1_1(pretrained=False, num_classes = 1000, distillation=False, init_cfg=None, out_indices=[], **kwargs):
     """
     Constructs a MobileNetV3-Large model
@@ -306,7 +308,7 @@ def repvit_m1_1(pretrained=False, num_classes = 1000, distillation=False, init_c
     return RepViT(cfgs, init_cfg=init_cfg, pretrained=pretrained, distillation=distillation, out_indices=out_indices)
 
 
-@BACKBONES.register_module()
+@MODELS.register_module()
 def repvit_m1_5(pretrained=False, num_classes = 1000, distillation=False, init_cfg=None, out_indices=[], **kwargs):
     """
     Constructs a MobileNetV3-Large model
@@ -359,8 +361,7 @@ def repvit_m1_5(pretrained=False, num_classes = 1000, distillation=False, init_c
     return RepViT(cfgs, init_cfg=init_cfg, pretrained=pretrained, distillation=distillation, out_indices=out_indices)
 
 
-
-@BACKBONES.register_module()
+@MODELS.register_module()
 def repvit_m2_3(pretrained=False, num_classes = 1000, distillation=False, init_cfg=None, out_indices=[], **kwargs):
     """
     Constructs a MobileNetV3-Large model
