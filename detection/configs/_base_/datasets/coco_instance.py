@@ -1,5 +1,6 @@
 # dataset settings
 dataset_type = 'CocoDataset'
+# classes = [str(i) for i in range(17)]
 data_root = 'data/coco/'
 classes = [
     "boots-powerup",

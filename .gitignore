@@ -7,3 +7,4 @@ ignore
 *.zip
 checkpoints
 trt
+detection/artifacts/
