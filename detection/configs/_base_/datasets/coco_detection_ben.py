@@ -36,8 +36,9 @@ train_pipeline = [
     dict(type='LoadImageFromFile', backend_args=backend_args),
     dict(type='LoadAnnotations', with_bbox=True),
     dict(type='Resize', scale=(1333, 800), keep_ratio=True),
-    # dict(type='RandomFlip', prob=0.5),
-    dict(type='RandomCrop', crop_type="relative_range",crop_size=(.5,.5)),
+    # dict(type='RandomFlip', prob=0.25),
+    # dict(type='RandomErasing', n_patches=(0,2), ratio=(0.,0.25)),
+    dict(type='RandomCrop', crop_type="relative_range",crop_size=(.75,.75)),
     dict(type='PackDetInputs')
 ]
 test_pipeline = [
