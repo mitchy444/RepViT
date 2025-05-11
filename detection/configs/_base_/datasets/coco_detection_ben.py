@@ -36,7 +36,8 @@ train_pipeline = [
     dict(type='LoadImageFromFile', backend_args=backend_args),
     dict(type='LoadAnnotations', with_bbox=True),
     dict(type='Resize', scale=(1333, 800), keep_ratio=True),
-    dict(type='RandomFlip', prob=0.5),
+    # dict(type='RandomFlip', prob=0.5),
+    dict(type='RandomCrop', crop_type="relative_range",crop_size=(.5,.5)),
     dict(type='PackDetInputs')
 ]
 test_pipeline = [
@@ -67,7 +68,7 @@ train_dataloader = dict(
     ),
 )
 val_dataloader = dict(
-    batch_size=1,
+    batch_size=2,
     num_workers=2,
     persistent_workers=True,
     drop_last=False,
@@ -88,7 +89,7 @@ test_dataloader = val_dataloader
 val_evaluator = dict(
     type='CocoMetric',
     ann_file=data_root + 'annotations/instances_val2017.json',
-    metric='bbox',
+    metric=['bbox','proposal'],
     format_only=False,
     backend_args=backend_args)
 test_evaluator = val_evaluator
