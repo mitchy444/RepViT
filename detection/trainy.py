@@ -68,6 +68,16 @@ def main():
 
     # load config
     cfg = Config.fromfile(args.config)
+    cfg.vis_backends = [
+        dict(type='LocalVisBackend'),
+        dict(type='WandbVisBackend',
+            init_kwargs={'project': 'MMDetection-faster-rcnn'},)
+    ]
+    cfg.visualizer = dict(
+        type='DetLocalVisualizer',
+        vis_backends=cfg.vis_backends,
+        name='visualizer'
+    )
     cfg.launcher = args.launcher
     if args.cfg_options is not None:
         cfg.merge_from_dict(args.cfg_options)
