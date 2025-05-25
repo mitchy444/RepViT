@@ -7,21 +7,17 @@ _base_ = [
 classes = [
     "person",
 ]
-
-# Override the dataset classes
+batch_size = 4
+# Override the dataset classes and batch size
 train_dataloader = dict(
+    batch_size=batch_size,  # Adjust this value as needed (default was 2)
     dataset=dict(
         metainfo=dict(classes=classes)
     )
 )
 
 val_dataloader = dict(
-    dataset=dict(
-        metainfo=dict(classes=classes)
-    )
-)
-
-test_dataloader = dict(
+    batch_size=batch_size,  # Adjust this value as needed (default was 2)
     dataset=dict(
         metainfo=dict(classes=classes)
     )
