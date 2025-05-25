@@ -7,6 +7,26 @@ _base_ = [
 classes = [
     "person",
 ]
+
+# Override the dataset classes
+train_dataloader = dict(
+    dataset=dict(
+        metainfo=dict(classes=classes)
+    )
+)
+
+val_dataloader = dict(
+    dataset=dict(
+        metainfo=dict(classes=classes)
+    )
+)
+
+test_dataloader = dict(
+    dataset=dict(
+        metainfo=dict(classes=classes)
+    )
+)
+
 model = dict(
     backbone=dict(
         type="repvit_m1_1",
